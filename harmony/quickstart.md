@@ -6,21 +6,29 @@ sidebar_position: 2
 
 Get Harmony Proxy running in 5 minutes.
 
-## Prerequisites
+## Installation
 
-Choose one of the following:
+Choose your preferred installation method:
 
-### Option 1: Local Development
-- Rust (stable) via [rustup](https://rustup.rs/)
-- macOS or Linux
+- **[Pre-built Binaries →](./installation#pre-built-binaries-recommended)** (Fastest - no build tools required)
+- **[Docker →](./installation#docker)** (Container-based deployment)
+- **[Build from Source →](./installation#build-from-source)** (For contributors and custom builds)
 
-### Option 2: Docker
-- Docker and Docker Compose
-- No Rust toolchain required
+For detailed installation instructions including all platforms and configuration options, see the [Installation Guide](./installation).
 
-## Running with Docker Compose (Recommended)
+## Docker
 
-The fastest way to try Harmony:
+Basic docker install:
+
+```bash
+docker pull aurabox/harmony:latest
+
+docker run -d -p 8080:8080 aurabox/harmony
+```
+
+## Docker Compose
+
+The fastest way to try Harmony with the examples:
 
 ```bash
 # Clone the repository
@@ -34,36 +42,13 @@ docker compose up
 curl -i http://localhost:8080/echo
 ```
 
-### Ports
-
+**Ports:**
 - **8080** - Main service endpoints
 - **9090** - Management API (if enabled)
 
-## Running from Source
-
-If you prefer to build from source:
-
-```bash
-# Clone the repository
-git clone https://github.com/aurabx/harmony.git
-cd harmony
-
-# Build
-cargo build --release
-
-# Run with example configuration
-cargo run --release -- --config examples/basic-echo/config.toml
-```
-
-Test the basic echo endpoint:
-
-```bash
-curl -i http://127.0.0.1:8080/echo
-```
-
 ## Try the Examples
 
-Harmony includes several example configurations:
+The Github repository includes several example configurations:
 
 ```bash
 # Basic HTTP echo
@@ -77,6 +62,21 @@ cargo run -- --config examples/transform/config.toml
 
 # FHIR to DICOM translation
 cargo run -- --config examples/fhir-to-dicom/config.toml
+
+# JMIX packaging
+cargo run -- --config examples/jmix/config.toml
+
+# DICOM SCU operations
+cargo run -- --config examples/dicom-backend/config.toml
+
+# DICOM SCP endpoint
+cargo run -- --config examples/dicom-scp/config.toml
+
+# DICOMweb support
+cargo run -- --config examples/dicomweb/config.toml
+
+# JMIX to DICOM workflow
+cargo run -- --config examples/jmix-to-dicom/config.toml
 ```
 
 Each example includes:
@@ -84,14 +84,14 @@ Each example includes:
 - A `config.toml` file
 - Pipeline definitions
 - Sample requests
+- A `demo.sh` file to run the example
 
-Explore the `examples/` directory to see more.
+Explore the `examples/` directory in the repository to see more.
 
 ## Next Steps
 
 Now that you have Harmony running:
 
-1. [Learn about configuration →](./configuration)
-2. [Understand authentication →](./authentication)
+1. [Learn about configuration →](./configuration/)
+2. [Understand authentication →](./configuration/authentication)
 3. [Deploy to production →](./deployment)
-4. [Integrate with Runbeam Cloud →](./runbeam-integration)

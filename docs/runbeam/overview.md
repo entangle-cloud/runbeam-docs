@@ -81,19 +81,7 @@ Runbeam Cloud provides a RESTful API for programmatic access:
 
 Use the [Runbeam SDK](/docs/sdk/overview) or [CLI](/docs/cli/overview) to interact with the API.
 
-## Pricing
-
-Runbeam Cloud offers both free and paid plans:
-
-- **Free Tier** - For development and small deployments
-- **Pro** - For production workloads with advanced features
-- **Enterprise** - Custom deployments with SLAs and support
-
-Visit [runbeam.io/pricing](https://runbeam.io/pricing) for current pricing.
-
 ## Next Steps
 
-- [Getting Started →](./getting-started) - Create your first gateway
-- [Gateway Configuration →](./gateways) - Learn about gateway settings
-- [Team Management →](./teams) - Invite team members
-- [API Documentation →](./api) - Programmatic access
+1. [Install Harmony →](/harmony/installation)
+2. [Learn about Gateway configuration →](/harmony/configuration)

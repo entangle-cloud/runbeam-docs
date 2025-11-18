@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Runbeam',
-  tagline: 'Turn Complex Integrations Into Simple Connections',
+  tagline: 'Runbeam + Harmony',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future

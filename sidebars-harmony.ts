@@ -17,6 +17,38 @@ const sidebars: SidebarsConfig = {
       id: 'installation',
       label: 'Installation',
     },
+    {
+      type: 'category',
+      label: 'Configuration',
+      collapsed: false,
+      items: [
+        {
+          type: 'doc',
+          id: 'configuration/index',
+          label: 'Overview',
+        },
+        {
+          type: 'doc',
+          id: 'configuration/services',
+          label: 'Services',
+        },
+        {
+          type: 'doc',
+          id: 'configuration/middleware',
+          label: 'Middleware',
+        },
+        {
+          type: 'doc',
+          id: 'configuration/authentication',
+          label: 'Authentication',
+        },
+      ],
+    },
+    {
+      type: 'doc',
+      id: 'deployment',
+      label: 'Deployment',
+    },
   ],
 };
 

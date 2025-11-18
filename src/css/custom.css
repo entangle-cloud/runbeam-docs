@@ -158,6 +158,20 @@
   transform: translateY(-1px);
 }
 
+/* Outline buttons on light backgrounds (features section) */
+.features .button--outline {
+  border: 1px solid #6366f1;
+  color: #6366f1;
+  background-color: transparent;
+}
+
+.features .button--outline:hover {
+  background-color: #6366f1;
+  border-color: #6366f1;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
 /* Navbar styling */
 .navbar {
   box-shadow: var(--ifm-navbar-shadow);

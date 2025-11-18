@@ -55,7 +55,7 @@ function Feature({title, Svg, description, link}: FeatureItem) {
         <p>{description}</p>
         <div className="margin-top--md">
           <Link
-            className="button button--primary button--md"
+            className="button button--outline button--md"
             to={link}>
             Learn More →
           </Link>

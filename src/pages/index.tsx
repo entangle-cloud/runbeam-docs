@@ -23,12 +23,6 @@ function HomepageHeader() {
             to="/runbeam/intro">
             Get Started →
           </Link>
-          <Link
-            className="button button--outline button--lg"
-            to="/harmony/overview"
-            style={{marginLeft: '1rem'}}>
-            View Harmony Docs
-          </Link>
         </div>
       </div>
     </header>
