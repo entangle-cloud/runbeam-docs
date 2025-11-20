@@ -21,7 +21,7 @@ const FeatureList: FeatureItem[] = [
         Manage gateways, configure services, and collaborate with your team.
       </>
     ),
-    link: '/runbeam/overview',
+    link: '/runbeam',
   },
   {
     title: 'Harmony Proxy',
@@ -32,7 +32,7 @@ const FeatureList: FeatureItem[] = [
         Configurable pipelines with hot configuration reload.
       </>
     ),
-    link: '/harmony/overview',
+    link: '/harmony',
   },
   {
     title: 'CLI & SDK',
@@ -43,7 +43,7 @@ const FeatureList: FeatureItem[] = [
         Secure authentication with OS keychain integration.
       </>
     ),
-    link: '/cli/overview',
+    link: '/cli',
   },
 ];
 

@@ -19,7 +19,7 @@ The Runbeam platform consists of four key components:
 - API access for programmatic configuration
 - Monitor and track your integration health
 
-[Learn more about Runbeam Cloud →](/docs/runbeam/overview)
+[Learn more about Runbeam Cloud →](/runbeam)
 
 ### Harmony Proxy
 
@@ -31,7 +31,7 @@ The Runbeam platform consists of four key components:
 - Secure authentication with JWT and machine tokens
 - JSON transformations (JOLT) and protocol bridging
 
-[Get started with Harmony →](/docs/harmony/overview)
+[Get started with Harmony →](/harmony)
 
 ### Runbeam CLI
 
@@ -43,7 +43,7 @@ The Runbeam platform consists of four key components:
 - Query instance configuration and health
 - Built-in encryption key management
 
-[Install the CLI →](/docs/cli/overview)
+[Install the CLI →](/cli)
 
 ### Runbeam SDK
 
@@ -55,7 +55,7 @@ The Runbeam platform consists of four key components:
 - Machine token handling for autonomous authentication
 - Cross-platform: macOS, Linux, and Windows
 
-[Explore the SDK →](/docs/sdk/overview)
+[Explore the SDK →](/sdk)
 
 ## How It Works
 
@@ -81,17 +81,17 @@ The Runbeam ecosystem connects cloud management with edge data processing:
   <div className="col col--6">
     <h3>New to Runbeam?</h3>
     <ul>
-      <li><a href="/docs/runbeam/overview">Explore Runbeam Cloud</a></li>
-      <li><a href="/docs/harmony/quickstart">Deploy your first Harmony instance</a></li>
+      <li><a href="/runbeam">Explore Runbeam Cloud</a></li>
+      <li><a href="/harmony/quickstart">Deploy your first Harmony instance</a></li>
       <li><a href="/docs/concepts/authentication">Understand authentication</a></li>
     </ul>
   </div>
   <div className="col col--6">
     <h3>Ready to Integrate?</h3>
     <ul>
-      <li><a href="/docs/cli/installation">Install the CLI</a></li>
-      <li><a href="/docs/sdk/installation">Add the SDK to your project</a></li>
-      <li><a href="/docs/harmony/configuration">Configure Harmony</a></li>
+      <li><a href="/cli">Install the CLI</a></li>
+      <li><a href="/sdk">Add the SDK to your project</a></li>
+      <li><a href="/harmony/quickstart">Configure Harmony</a></li>
     </ul>
   </div>
 </div>

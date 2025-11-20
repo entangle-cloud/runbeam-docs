@@ -54,7 +54,7 @@ JOLT specifications for data transformation:
 - Data enrichment
 - Format conversion
 
-[Learn more about Transforms →](./transforms)
+[Learn more about Transforms →](../transforms)
 
 ## Configuration Flow
 

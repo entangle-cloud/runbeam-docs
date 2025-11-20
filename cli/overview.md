@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+slug: /
 ---
 
 # Runbeam CLI
@@ -120,7 +121,5 @@ runbeam logout
 
 ## Next Steps
 
-- [Installation Guide →](./installation) - Detailed installation instructions
-- [Authentication →](./authentication) - Learn about OAuth and token management
-- [Managing Harmony →](./managing-harmony) - Instance management workflows
-- [Command Reference →](./commands) - Complete command documentation
+- [Harmony Proxy →](/harmony) - Learn about Harmony Proxy
+- [Runbeam Cloud →](/runbeam) - Explore Runbeam Cloud

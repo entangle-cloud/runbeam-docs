@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+slug: /
 ---
 
 # Runbeam SDK
@@ -150,7 +151,5 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## Next Steps
 
-- [Installation →](./installation) - Add the SDK to your project
-- [Authentication →](./authentication) - JWT vs Sanctum tokens
-- [API Usage →](./api-usage) - Working with the API client
-- [Token Storage →](./token-storage) - Secure credential management
+- [Runbeam Cloud →](/runbeam) - Learn about Runbeam Cloud
+- [Harmony Proxy →](/harmony) - Explore Harmony Proxy

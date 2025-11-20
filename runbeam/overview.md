@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+slug: /
 ---
 
 # Runbeam Cloud
@@ -78,7 +79,7 @@ Runbeam Cloud provides a RESTful API for programmatic access:
 - **Pipeline Management** - Define transformation and auth pipelines
 - **Token Management** - Issue and revoke access tokens
 
-Use the [Runbeam SDK](/docs/sdk/overview) or [CLI](/docs/cli/overview) to interact with the API.
+Use the [Runbeam SDK](/sdk) or [CLI](/cli) to interact with the API.
 
 ## Next Steps
 

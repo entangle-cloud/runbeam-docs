@@ -305,7 +305,7 @@ sudo systemctl status harmony
 - `RUNBEAM_MACHINE_TOKEN` - Pre-provisioned machine token (JSON format) for connecting to Runbeam
 - `RUNBEAM_JWT_SECRET` - Shared secret for JWT validation
 
-See the [Security Guide](./security) for details on generating and managing these values.
+See the [Authentication Guide](./authentication) for details on generating and managing these values.
 
 ## Verification
 
@@ -322,5 +322,5 @@ curl http://localhost:8080/echo
 ## Next Steps
 
 - [Configure Harmony →](./configuration/)
-- [Set up authentication →](./configuration/authentication)
+- [Set up authentication →](./authentication)
 - [Deploy to production →](./deployment)

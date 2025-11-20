@@ -9,13 +9,6 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Runbeam Cloud',
-      items: [
-        'runbeam/overview',
-      ],
-    },
-    {
-      type: 'category',
       label: 'Concepts',
       items: [
         'concepts/authentication',

@@ -236,7 +236,5 @@ let response = client.authorize_gateway(
 
 ## Next Steps
 
-- [Machine Tokens →](./machine-tokens) - Deep dive into machine tokens
-- [Security →](./security) - Security best practices
-- [CLI Authentication →](/docs/cli/authentication) - Using the CLI
-- [SDK Authentication →](/docs/sdk/authentication) - Integrating with the SDK
+- [Runbeam CLI →](/cli) - Using the CLI
+- [Runbeam SDK →](/sdk) - Integrating with the SDK

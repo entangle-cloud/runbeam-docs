@@ -401,6 +401,5 @@ curl -v http://localhost:8080/health
 
 ## Next Steps
 
-- [Configure authentication →](./configuration/authentication)
-- [Learn about monitoring →](./monitoring)
+- [Configuration overview →](./configuration/)
 - [View production examples →](https://github.com/aurabx/harmony/tree/main/examples)
