@@ -309,7 +309,7 @@ If authorization fails:
 
 If you encounter issues:
 
-- Check the [Commands Reference](commands) for detailed command documentation
+- Check the [Commands Reference](/cli/commands) for detailed command documentation
 - Visit the [Harmony documentation](/harmony) for configuration help
 - Increase CLI verbosity for debugging: `runbeam -vv <command>`
 - Check Harmony logs for error messages
