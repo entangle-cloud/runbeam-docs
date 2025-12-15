@@ -50,9 +50,60 @@ const sidebars: SidebarsConfig = {
           label: 'Services',
         },
         {
-          type: 'doc',
-          id: 'components/middleware',
+          type: 'category',
           label: 'Middleware',
+          collapsed: false,
+          link: {
+            type: 'doc',
+            id: 'components/middleware',
+          },
+          items: [
+            {
+              type: 'doc',
+              id: 'components/middleware/basic-auth',
+              label: 'Basic Auth',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/jwt-auth',
+              label: 'JWT Auth',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/transform-jolt',
+              label: 'Transform (JOLT)',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/metadata-transform',
+              label: 'Metadata Transform',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/path-filter',
+              label: 'Path Filter',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/jmix-builder',
+              label: 'JMIX Builder',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/dicomweb-bridge',
+              label: 'DICOMweb Bridge',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/dicom-flatten',
+              label: 'DICOM Flatten',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/log-dump',
+              label: 'Log Dump',
+            },
+          ],
         },
         {
           type: 'doc',
