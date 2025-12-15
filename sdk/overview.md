@@ -39,8 +39,7 @@ Both methods work interchangeably with all API operations.
 
 Automatic secure storage with **no configuration required**:
 
-1. **OS Keyring** (preferred) - macOS Keychain, Linux Secret Service, Windows Credential Manager
-2. **Encrypted Filesystem** (fallback) - age X25519 encryption for headless/CI environments
+**Encrypted Filesystem** - age X25519 encryption for secure offline storage
 
 ### Machine Tokens
 

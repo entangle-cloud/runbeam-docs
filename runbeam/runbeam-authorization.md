@@ -30,45 +30,7 @@ Before authorizing, ensure:
 
 ## CLI Method (Interactive)
 
-Use the `runbeam` CLI to authorize a running Harmony instance. This is the normal, interactive flow.
-
-### Step 1: Log in to Runbeam
-
-```bash
-runbeam login
-```
-
-This opens a browser for authentication and stores your user token locally.
-
-### Step 2: Authorize the Harmony instance
-
-```bash
-# Authorize by label (recommended)
-runbeam harmony:authorize -l my-label
-
-# Or by instance ID
-runbeam harmony:authorize --id 1a2b3c4d
-
-# Non-interactive mode (for CI/automation)
-runbeam harmony:authorize -l my-label -y
-```
-
-### What happens
-
-1. CLI loads your user token from `runbeam login`
-2. CLI calls Runbeam Cloud API to authorize the gateway and issue a machine token
-3. CLI delivers the machine token to the Harmony proxy (via Management API `/token` endpoint)
-4. Harmony stores the machine token encrypted and uses it for autonomous API access
-
-### Renewal
-
-Machine tokens expire after ~30 days. To renew:
-
-```bash
-runbeam harmony:authorize -l my-label
-```
-
-Re-running the command replaces the expired token with a fresh one.
+Use the `runbeam` CLI to authorize a running Harmony instance. For detailed instructions, see the [Authorization Guide](/cli/authorization).
 
 ## Out-of-Band Token Generation (CI/CD)
 

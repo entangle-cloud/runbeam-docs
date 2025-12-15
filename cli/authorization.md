@@ -21,12 +21,11 @@ runbeam harmony:authorize --id 1a2b3c4d
 The authorization process securely exchanges your user credentials for a machine-scoped token:
 
 1. CLI loads your user authentication token
-2. CLI retrieves the encryption key from secure OS keyring (if configured)
-3. CLI calls the Runbeam Cloud API to authorize the gateway
-4. Runbeam Cloud issues a machine-scoped token (30-day expiry)
-5. CLI sends the token and encryption key to Harmony
-6. Harmony stores the machine token encrypted with the provided key
-7. Harmony can now make authenticated API calls to Runbeam Cloud
+2. CLI calls the Runbeam Cloud API to authorize the gateway
+3. Runbeam Cloud issues a machine-scoped token (30-day expiry)
+4. CLI sends the token and encryption key to Harmony
+5. Harmony stores the machine token encrypted with the provided key
+6. Harmony can now make authenticated API calls to Runbeam Cloud
 
 ## Security Model
 

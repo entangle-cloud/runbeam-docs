@@ -28,7 +28,7 @@ This command is intended for development and troubleshooting only and is not req
 
 ## Authentication Commands
 
-Authentication uses secure token storage managed by the Runbeam SDK. Tokens are stored in the OS keyring when available, or in encrypted filesystem storage as a fallback.
+Authentication uses secure token storage managed by the Runbeam SDK. Tokens are stored in encrypted filesystem storage.
 
 Any legacy plaintext token file (`~/.runbeam/auth.json`) is automatically migrated to secure storage on first use.
 

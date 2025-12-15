@@ -92,14 +92,22 @@ SflKxwR... (Signature - cryptographic proof)
 The most common authorization flow - connecting Harmony to Runbeam Cloud:
 
 ```
-┌─────────┐      ┌─────────┐      ┌──────────────┐      ┌─────────┐
-│   CLI   │─────▶│ Harmony │─────▶│ Runbeam Cloud│─────▶│ Gateway │
-│         │ (1)  │  Proxy  │ (2)  │              │ (3)  │  Token  │
-└─────────┘      └─────────┘      └──────────────┘      └─────────┘
-     │                                     │                    │
-     │                                     │                    │
-     └─────────────────────────────────────┴────────────────────┘
-                         (4) Encrypted storage
+Authorization Flow
+├── 1. User Login
+│   └── User runs: runbeam login
+│
+├── 2. CLI to Harmony
+│   └── CLI sends user token to Harmony
+│
+├── 3. Harmony to Cloud
+│   └── Harmony validates JWT, requests machine token
+│
+├── 4. Token Exchange
+│   └── Runbeam Cloud issues 30-day machine token
+│
+└── 5. Secure Storage
+    └── Harmony encrypts and stores machine token
+    └── Gateway uses token for API access
 ```
 
 **Step-by-step**:
@@ -139,15 +147,10 @@ export RUNBEAM_ENCRYPTION_KEY=AGE-SECRET-KEY-...
 
 Tokens must never be stored in plaintext on disk. The Runbeam ecosystem uses:
 
-1. **OS Keyring** (preferred)
-   - macOS: Keychain
-   - Linux: Secret Service API (freedesktop.org)
-   - Windows: Credential Manager
-
-2. **Encrypted Filesystem** (fallback)
-   - age X25519 encryption
-   - Restrictive file permissions (0600 on Unix)
-   - Instance-specific encryption keys
+**Encrypted Filesystem**
+- age X25519 encryption
+- Restrictive file permissions (0600 on Unix)
+- Instance-specific encryption keys
 
 ### Encryption Key Management
 
@@ -175,7 +178,6 @@ aws secretsmanager create-secret \
 ### For Development
 
 - Use `runbeam login` for interactive authentication
-- Let OS keyring handle token storage
 - Rotate tokens regularly
 
 ### For Production
@@ -215,24 +217,7 @@ let response = client.authorize_gateway(
 - Ensure token hasn't expired
 - Check `RUNBEAM_JWKS_TTL` if using custom cache duration
 
-### Machine Token Expired
-
-**Symptoms**: Harmony can't connect to Runbeam Cloud
-
-**Solutions**:
-- Check token expiry: `runbeam harmony:info -l my-gateway`
-- Re-authorize: `runbeam harmony:authorize -l my-gateway`
-- For automated renewal, set up cron job or monitoring alert at 25 days
-
-### Storage Backend Issues
-
-**Symptoms**: "Failed to save token" or "Keyring unavailable"
-
-**Solutions**:
-- Check OS keyring service is running (Linux: `secret-tool`)
-- Verify file permissions on `~/.runbeam/`
-- Set `RUNBEAM_ENCRYPTION_KEY` explicitly for encrypted filesystem fallback
-- Check logs: `RUST_LOG=debug runbeam ...`
+For authorization and token management troubleshooting, see the [Authorizing Gateways →](/runbeam/runbeam-authorization#troubleshooting) guide.
 
 ## Next Steps
 

@@ -244,7 +244,6 @@ export RUNBEAM_ENCRYPTION_KEY=AGE-SECRET-KEY-...
 Required for:
 - Production container deployments
 - Headless/CI environments
-- When OS keyring unavailable
 
 ### RUNBEAM_JWT_SECRET
 

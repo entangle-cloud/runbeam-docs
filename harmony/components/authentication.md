@@ -84,41 +84,7 @@ config = {
 
 ## Runbeam Cloud Integration
 
-When connected to Runbeam Cloud, Harmony uses machine tokens for autonomous authentication:
-
-### Authorization Flow
-
-1. **Initial Setup**: Authenticate via CLI
-   ```bash
-   runbeam login
-   runbeam harmony:authorize -l my-gateway
-   ```
-
-2. **Machine Token**: Runbeam issues a 30-day scoped token
-
-3. **Automatic Renewal**: Token is stored securely and used for API calls
-
-4. **Configuration Sync**: Gateway pulls config automatically
-
-### Machine Token Storage
-
-Tokens are stored securely:
-
-- **OS Keyring** (preferred): macOS Keychain, Linux Secret Service, Windows Credential Manager
-- **Encrypted Filesystem** (fallback): age X25519 encryption with instance-specific keys
-
-### Environment Variables
-
-```bash
-# Pre-provisioned token for headless deployments
-export RUNBEAM_MACHINE_TOKEN='{"machine_token":"mt_...", ...}'
-
-# Encryption key for token storage
-export RUNBEAM_ENCRYPTION_KEY=AGE-SECRET-KEY-...
-
-# JWT secret for validation
-export RUNBEAM_JWT_SECRET=your-secret-here
-```
+For detailed information on connecting Harmony to Runbeam Cloud, see [Connecting to Runbeam](./connecting-to-runbeam.md).
 
 ## Token Validation
 
@@ -172,7 +138,7 @@ config = { header = "X-API-Key", keys = [...] }
 - **Always use RS256** with JWKS rotation
 - **Never commit secrets** to version control
 - **Use HTTPS** for all endpoints
-- **Store tokens securely** in OS keyring or encrypted storage
+- **Store tokens securely** in encrypted storage
 - **Monitor token expiry** and rotate before 30 days
 - **Use separate keys** for different environments
 
@@ -209,10 +175,9 @@ export RUNBEAM_ENCRYPTION_KEY=$(age-keygen | grep AGE-SECRET-KEY | base64 -w 0)
 
 ### Storage Backend Issues
 
-**Symptoms**: "Failed to save token" or "Keyring unavailable"
+**Symptoms**: "Failed to save token" or "Storage backend unavailable"
 
 **Solutions**:
-- Verify OS keyring service is running
 - Check file permissions on `~/.runbeam/`
 - Set `RUNBEAM_ENCRYPTION_KEY` explicitly
 - Check logs: `RUST_LOG=debug harmony-proxy`

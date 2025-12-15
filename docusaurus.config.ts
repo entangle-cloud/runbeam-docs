@@ -194,7 +194,7 @@ const config: Config = {
                         },
                         {
                             label: 'Harmony Proxy',
-                            href: 'https://runbeam.io/harmony-proxy',
+                            href: 'https://runbeam.io/product/harmony-proxy',
                         },
                     ],
                 },

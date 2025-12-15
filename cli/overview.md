@@ -16,7 +16,7 @@ The Runbeam CLI is a cross-platform command-line tool that simplifies working wi
 ### Browser-Based OAuth Authentication
 - Seamless OAuth login flow
 - Opens browser for Runbeam authentication
-- Secure token storage in OS keychain
+- Secure encrypted token storage
 - Automatic token validation (RS256)
 
 ### Harmony Instance Management
@@ -32,9 +32,8 @@ The Runbeam CLI is a cross-platform command-line tool that simplifies working wi
 - Secure token exchange flow
 
 ### Secure Credential Storage
-- **OS Keychain** (preferred): macOS Keychain, Linux Secret Service, Windows Credential Manager
-- **Encrypted Filesystem** (fallback): ChaCha20-Poly1305 AEAD encryption
-- Automatic storage backend selection
+- Encrypted filesystem storage (age X25519 encryption)
+- Automatic encryption key management
 - No plaintext credentials on disk
 
 ## Installation
