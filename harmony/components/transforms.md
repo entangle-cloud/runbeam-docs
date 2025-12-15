@@ -310,7 +310,7 @@ Learn more about JOLT transformations:
 
 ## Next Steps
 
-- [Configure Middleware →](middleware.md) - Use transforms in pipelines
-- [Configure Pipelines →](./configuration/pipelines) - Define request processing
-- [Configure Authentication →](authentication.md) - Secure your gateway
-- [Configure Services →](services.md) - Connect to backends
+- [Configure Middleware →](./middleware.md) - Use transforms in pipelines
+- [Configure Pipelines →](../configuration/pipelines.md) - Define request processing
+- [Configure Authentication →](./authentication.md) - Secure your gateway
+- [Configure Services →](./services.md) - Connect to backends

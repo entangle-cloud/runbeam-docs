@@ -411,6 +411,6 @@ url = "https://api2.example.com"
 
 ## Related Documentation
 
-- [Configuration](./configuration/) - Complete configuration guide
-- [Middleware](middleware.md) - Request/response transformation
-- [Authentication](authentication.md) - Security and auth setup
+- [Configuration](../configuration/) - Complete configuration guide
+- [Middleware](./middleware.md) - Request/response transformation
+- [Authentication](./authentication.md) - Security and auth setup

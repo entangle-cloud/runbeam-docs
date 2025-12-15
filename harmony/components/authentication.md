@@ -219,5 +219,5 @@ export RUNBEAM_ENCRYPTION_KEY=$(age-keygen | grep AGE-SECRET-KEY | base64 -w 0)
 
 ## Next Steps
 
-- [Deploy to production →](./deployment)
+- [Deploy to production →](../deployment/deployment.md)
 - [Learn about authentication concepts →](/docs/concepts/authentication)
