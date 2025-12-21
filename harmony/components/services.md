@@ -50,6 +50,8 @@ A basic HTTP endpoint for generic HTTP traffic with automatic multi-format suppo
 - Preserves headers, query parameters, and body
 - Automatically parses multiple content types
 
+**Note:** This service handles both HTTP/1.x and HTTP/3 incoming requests. When a network has `[network.*.http3]` configured, the Http3Adapter serves the same endpoints using HTTP/3 over QUIC. No endpoint configuration changes are needed - the same `http` service works for both protocols.
+
 **Supported Content Types:**
 
 1. **JSON** (`application/json`, `application/fhir+json`, `application/dicom+json`)
@@ -274,6 +276,41 @@ service = "dicomweb"
 [backends.pacs_dicomweb.options]
 base_url = "https://pacs.example.com/dicomweb"
 ```
+
+### HTTP/3 (QUIC)
+
+An HTTP/3 backend for connecting to targets over QUIC with TLS 1.3.
+
+**Service behavior:**
+- Connects to backends using HTTP/3 over QUIC (UDP transport)
+- Built-in TLS 1.3 encryption (always enabled)
+- Multiplexed streams without head-of-line blocking
+- Supports custom CA certificates for self-signed servers
+
+**Configuration options:**
+- `host` (string, required): Target server hostname
+- `port` (integer, optional): Target server port (default: 443)
+- `base_path` (string, optional): Base URL path prefix
+- `ca_cert_path` (string, optional): Path to PEM-encoded CA certificate for self-signed servers
+- `timeout_secs` (integer, optional): Request timeout in seconds (default: 30)
+
+**Configuration:**
+```toml
+[backends.h3_api]
+service = "http3"
+[backends.h3_api.options]
+host = "api.example.com"
+port = 443
+base_path = "/v1"
+# ca_cert_path = "./certs/custom-ca.pem"  # For self-signed certs
+# timeout_secs = 30
+```
+
+**When to use HTTP/3:**
+- High-latency or unreliable networks (mobile, satellite)
+- Backend servers that support HTTP/3
+- When you need connection migration (e.g., mobile clients changing networks)
+- To avoid TCP head-of-line blocking on multiplexed connections
 
 ### DICOM SCU (Service Class User)
 

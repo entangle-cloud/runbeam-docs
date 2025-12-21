@@ -99,6 +99,42 @@ bind_address = "127.0.0.1"
 bind_port = 8081
 ```
 
+### HTTP/3 (QUIC) Listener
+
+Enable HTTP/3 support on a network by adding an `http3` section. HTTP/3 uses QUIC over UDP and requires TLS certificates:
+
+```toml
+[network.public]
+enable_wireguard = false
+
+# Standard HTTP/1.x and HTTP/2 (TCP)
+[network.public.http]
+bind_address = "0.0.0.0"
+bind_port = 8080
+
+# HTTP/3 over QUIC (UDP)
+[network.public.http3]
+bind_address = "0.0.0.0"
+bind_port = 443
+cert_path = "/etc/harmony/certs/fullchain.pem"
+key_path = "/etc/harmony/certs/privkey.pem"
+```
+
+**HTTP/3 Configuration Options:**
+
+| Option | Type | Required | Description |
+|--------|------|----------|-------------|
+| `bind_address` | string | Yes | UDP address to bind (e.g., "0.0.0.0") |
+| `bind_port` | integer | Yes | UDP port for QUIC (typically 443) |
+| `cert_path` | string | Yes | Path to TLS certificate chain (PEM format) |
+| `key_path` | string | Yes | Path to TLS private key (PEM format) |
+
+**Notes:**
+- HTTP/3 always uses TLS 1.3 (built into QUIC)
+- Both `http` and `http3` can be enabled on the same network
+- Both adapters serve the same pipelines and endpoints
+- HTTP/3 uses UDP, not TCP - ensure firewall rules allow UDP traffic
+
 ## Runbeam Cloud Integration
 
 Configure connection to Runbeam Cloud for centralized management:
@@ -177,6 +213,9 @@ Register available service types for endpoints and backends:
 
 ```toml
 [services.http]
+module = ""
+
+[services.http3]
 module = ""
 
 [services.echo]
