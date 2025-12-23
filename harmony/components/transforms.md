@@ -72,6 +72,25 @@ spec_path = "optional_enrichment.json"
 fail_on_error = false
 ```
 
+### debug
+
+Enable debug logging of transform input and output:
+
+- `true` - Log transform input/output at DEBUG level
+- `false` - No debug output (default)
+
+```toml
+[middleware.my_transform.options]
+spec_path = "patient_to_fhir.json"
+debug = true
+```
+
+When enabled, the middleware logs:
+- Transform input (including both `data` payload and `context` with request/response details)
+- Transform output after applying the JOLT specification
+
+Requires `RUST_LOG=harmony=debug` or higher to be visible in logs. Useful for troubleshooting transform specifications and understanding data flow.
+
 ## JOLT Specification Format
 
 Transform files contain JOLT specifications in JSON format:
@@ -97,6 +116,16 @@ Transform files contain JOLT specifications in JSON format:
 
 Map fields from one structure to another:
 
+**Before:**
+```json
+{
+  "patient_id": "12345",
+  "patient_name": "John Doe",
+  "dob": "1980-01-15"
+}
+```
+
+**Transform:**
 ```json
 [
   {
@@ -110,10 +139,32 @@ Map fields from one structure to another:
 ]
 ```
 
+**After:**
+```json
+{
+  "id": "12345",
+  "name": "John Doe",
+  "birthDate": "1980-01-15"
+}
+```
+
 ### Nested Data
 
 Extract or restructure nested data:
 
+**Before:**
+```json
+{
+  "patient": {
+    "demographics": {
+      "firstName": "Jane",
+      "lastName": "Smith"
+    }
+  }
+}
+```
+
+**Transform:**
 ```json
 [
   {
@@ -130,32 +181,78 @@ Extract or restructure nested data:
 ]
 ```
 
+**After:**
+```json
+{
+  "name": {
+    "given": ["Jane"],
+    "family": "Smith"
+  }
+}
+```
+
 ### Adding Static Values
 
 Add constant values to the output:
 
+**Before:**
+```json
+{
+  "id": "12345",
+  "name": "John Doe"
+}
+```
+
+**Transform:**
 ```json
 [
   {
     "operation": "shift",
     "spec": {
-      "*": "&",
-      "#fhir": "resourceType"
+      "*": "&"
     }
   },
   {
     "operation": "default",
     "spec": {
-      "resourceType": "Patient"
+      "resourceType": "Patient",
+      "status": "active"
     }
   }
 ]
+```
+
+**After:**
+```json
+{
+  "id": "12345",
+  "name": "John Doe",
+  "resourceType": "Patient",
+  "status": "active"
+}
 ```
 
 ### Array Handling
 
 Transform arrays of data:
 
+**Before:**
+```json
+{
+  "observations": [
+    {
+      "code": "BP",
+      "value": "120/80"
+    },
+    {
+      "code": "TEMP",
+      "value": "98.6"
+    }
+  ]
+}
+```
+
+**Transform:**
 ```json
 [
   {
@@ -170,6 +267,26 @@ Transform arrays of data:
     }
   }
 ]
+```
+
+**After:**
+```json
+{
+  "entry": [
+    {
+      "resource": {
+        "code": "BP",
+        "value": "120/80"
+      }
+    },
+    {
+      "resource": {
+        "code": "TEMP",
+        "value": "98.6"
+      }
+    }
+  ]
+}
 ```
 
 ## Transform Middleware Types
