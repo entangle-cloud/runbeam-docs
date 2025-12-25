@@ -37,6 +37,11 @@ const sidebars: SidebarsConfig = {
           id: 'configuration/pipelines',
           label: 'Pipelines',
         },
+        {
+          type: 'doc',
+          id: 'configuration/mesh',
+          label: 'Data Mesh',
+        },
       ],
     },
     {
