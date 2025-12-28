@@ -1,0 +1,41 @@
+[project]
+name = "docs"
+description = "Documentation site for Harmony, Runbeam, CLI, and SDK"
+language = "typescript"
+version = "0.0.0"
+
+[commands]
+build = "pnpm build"
+dev = "pnpm dev"
+lint = "pnpm typecheck"
+
+[entry_points]
+main = "docusaurus.config.ts"
+harmony_docs = "harmony/"
+cli_docs = "cli/"
+runbeam_docs = "runbeam/"
+sdk_docs = "sdk/"
+
+[dependencies]
+internal = []
+external = ["@docusaurus/core", "@docusaurus/preset-classic", "react"]
+
+[related_projects]
+upstream = ["harmony-proxy", "runbeam-cli", "runbeam-sdk", "runbeam"]
+downstream = []
+
+[concepts.documentation_structure]
+files = ["docusaurus.config.ts", "sidebars-harmony.ts", "sidebars-cli.ts", "sidebars-runbeam.ts"]
+summary = "Docusaurus multi-instance docs with separate sidebars for each product area"
+
+[concepts.harmony_docs]
+files = ["harmony/"]
+summary = "Harmony Proxy documentation: configuration, middleware, backends, protocols"
+
+[concepts.cli_docs]
+files = ["cli/"]
+summary = "Runbeam CLI documentation: commands, authentication, instance management"
+
+[concepts.platform_docs]
+files = ["runbeam/", "sdk/"]
+summary = "Runbeam platform and SDK documentation: API reference, integration guides"
