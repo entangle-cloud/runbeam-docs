@@ -150,6 +150,7 @@ An ingress binds URLs to a pipeline's endpoint. Ingresses are defined within pip
 type = "http"
 urls = ["https://api.example.com", "https://api2.example.com"]
 endpoint = "api-endpoint"  # Optional: defaults to first endpoint in pipeline
+mode = "default"           # Optional: "default" or "mesh"
 description = "API ingress for partner requests"
 enabled = true
 ```
@@ -161,10 +162,26 @@ enabled = true
 | `type` | string | Yes | - | Protocol type: `http` or `http3` |
 | `urls` | array | Yes | - | URLs that map to this ingress |
 | `endpoint` | string | No | First endpoint | Optional endpoint override |
+| `mode` | string | No | `default` | Request mode: `default` or `mesh` |
 | `description` | string | No | - | Human-readable description |
 | `enabled` | boolean | No | `true` | Whether the ingress is active |
 
 When a request matches one of the `urls`, it will be routed to the pipeline using the specified endpoint (or the first endpoint if not specified).
+
+### Mode
+
+The `mode` field controls whether non-mesh requests are allowed:
+
+- **`default`** (or omitted): All requests are processed, regardless of mesh membership. If the ingress is in a mesh and the request has a valid mesh JWT, the request is processed with mesh context. Otherwise, it proceeds without mesh context.
+- **`mesh`**: Only requests that match a mesh are allowed. If a request arrives without a valid mesh JWT (or the JWT doesn't match a mesh this ingress belongs to), the request is rejected with a 403 Forbidden response.
+
+```toml
+# Mesh-only ingress - rejects non-mesh requests
+[pipelines.api-pipeline.mesh.ingress.internal-api]
+type = "http"
+urls = ["https://internal.example.com"]
+mode = "mesh"
+```
 
 ### Ingress Without Mesh
 
@@ -186,6 +203,7 @@ An egress defines how this proxy can send requests to other mesh members. Egress
 [pipelines.api-pipeline.mesh.egress.partner-egress]
 type = "http3"
 backend = "partner-backend"  # Optional: defaults to first backend in pipeline
+mode = "default"             # Optional: "default" or "mesh"
 description = "Egress to partner system"
 enabled = true
 ```
@@ -196,10 +214,26 @@ enabled = true
 |-------|------|----------|---------|-------------|
 | `type` | string | Yes | - | Protocol type: `http` or `http3` |
 | `backend` | string | No | First backend | Optional backend override |
+| `mode` | string | No | `default` | Request mode: `default` or `mesh` |
 | `description` | string | No | - | Human-readable description |
 | `enabled` | boolean | No | `true` | Whether the egress is active |
 
 Outgoing mesh requests will be routed through the specified backend (or the first backend in the pipeline if not specified).
+
+### Mode
+
+Similar to ingress, the `mode` field controls whether non-mesh requests are allowed through the egress:
+
+- **`default`** (or omitted): All requests are processed, regardless of mesh context.
+- **`mesh`**: Only requests with mesh context are allowed. If the request doesn't have a valid mesh context (i.e., it didn't enter via a mesh ingress), the request is rejected with a 403 Forbidden response.
+
+```toml
+# Mesh-only egress - only allows requests with mesh context
+[pipelines.api-pipeline.mesh.egress.secure-partner]
+type = "http3"
+backend = "partner-backend"
+mode = "mesh"
+```
 
 ## Complete Example
 
