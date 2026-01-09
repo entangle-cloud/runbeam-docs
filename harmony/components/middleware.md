@@ -43,28 +43,28 @@ This ensures only actual authentication problems return 401, while configuration
 
 ### Authentication
 
-- [Basic Auth →](./middleware/basic-auth.md) - Validate `Authorization: Basic` credentials.
-- [JWT Auth →](./middleware/jwt-auth.md) - Verify `Authorization: Bearer` tokens (RS256/HS256).
+- [Basic Auth ](./middleware/basic-auth.md) - Validate `Authorization: Basic` credentials.
+- [JWT Auth ](./middleware/jwt-auth.md) - Verify `Authorization: Bearer` tokens (RS256/HS256).
 
 ### Transformation
 
-- [Transform (JOLT) →](./middleware/transform-jolt.md) - Apply JSON-to-JSON transformations.
-- [Metadata Transform →](./middleware/metadata-transform.md) - Apply JOLT transforms to request metadata.
+- [Metadata Transform ](./middleware/metadata-transform.md) - Apply JOLT transforms to request metadata.
+- [Transform (JOLT ](./middleware/transform-jolt.md) - Apply JSON-to-JSON transformations.
 
 ### Filtering
 
-- [Path Filter →](./middleware/path-filter.md) - Reject requests that don’t match allowed URL patterns.
+- [Path Filter ](./middleware/path-filter.md) - Reject requests that dont match allowed URL patterns.
 
 ### Healthcare-specific
 
-- [JMIX Builder →](./middleware/jmix-builder.md) - Build JMIX packages from DICOM operation responses.
-- [DICOMweb to DICOM →](./middleware/dicomweb-bridge.md) - Bridge DICOMweb (QIDO/WADO) to DIMSE operations.
-- [DICOM to DICOMweb →](./middleware/dicom-to-dicomweb.md) - Bridge DIMSE operations to DICOMweb (QIDO/STOW/WADO).
-- [DICOM Flatten →](./middleware/dicom-flatten.md) - Flatten/unflatten DICOM JSON for simplified processing.
+- [DICOM Flatten ](./middleware/dicom-flatten.md) - Flatten/unflatten DICOM JSON for simplified processing.
+- [DICOM to DICOMweb ](./middleware/dicom-to-dicomweb.md) - Bridge DIMSE operations to DICOMweb (QIDO/STOW/WADO).
+- [DICOMweb to DICOM ](./middleware/dicomweb-bridge.md) - Bridge DICOMweb (QIDO/WADO) to DIMSE operations.
+- [JMIX Builder ](./middleware/jmix-builder.md) - Build JMIX packages from DICOM operation responses.
 
 ### Debugging
 
-- [Log Dump →](./middleware/log-dump.md) - Dump envelopes to logs with configurable redaction.
+- [Log Dump ](./middleware/log-dump.md) - Dump envelopes to logs with configurable redaction.
 ## Middleware Ordering
 
 Order matters! Middleware executes in the order defined in your pipeline.

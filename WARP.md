@@ -9,6 +9,7 @@ This is the documentation project for runbeam.
 - Follow existing markdown formatting conventions
 - Use consistent heading levels and structure
 - Maintain clear and concise documentation
+- Order Harmony Middleware items alphabetically by label in sidebars and documentation listings (catalogs, tables, and index pages).
 
 ## Development Workflow
 - Keep documentation in sync with code changes

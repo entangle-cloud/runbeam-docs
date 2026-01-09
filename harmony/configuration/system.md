@@ -64,7 +64,7 @@ transforms_path = "transforms"    # Directory containing JOLT transforms
 ```
 
 **Fields:**
-- `id` (string, required) - Unique identifier for this gateway instance. Used for cloud integration, machine token storage, and identifying the gateway in logs and monitoring systems. Added in v0.12.0.
+- `id` (string, required) - Unique identifier for this gateway instance. Used for cloud integration, machine token storage, and identifying the gateway in logs and monitoring systems. This value is provisioned by Runbeam and should not be used locally. (Since v0.12)
 - `pipelines_path` (string, optional) - Directory containing pipeline configuration files (default: `"pipelines"`)
 - `transforms_path` (string, optional) - Directory containing JOLT transform specifications (default: `"transforms"`)
 
@@ -321,8 +321,6 @@ log_file_path = "./tmp/harmony.log"            # Log file location
 - `warn` - Warning messages
 - `error` - Error messages only
 
-**Note**: The `RUST_LOG` environment variable overrides `log_level` if set.
-
 ## Storage
 
 Configure local storage for temporary files:
@@ -395,81 +393,118 @@ Harmony automatically detects changes to `config.toml` and pipeline files, reloa
 4. Configuration applied based on change type
 5. Invalid configs are rejected, previous config retained
 
-### Zero-Downtime Changes
+### Zero‑Downtime Changes
 
-These changes apply immediately via atomic config swap without interruption:
-- Middleware configuration (transforms, auth rules, path filters)
-- Route definitions (endpoints, backends, pipelines)
-- Backend URLs and timeouts
+These changes are applied immediately via an atomic config swap with no adapter restarts:
+- Middleware configuration (transforms, auth rules, path filters, JWT secrets, etc.)
+- Route definitions (pipelines and their endpoint/backend references)
+- Endpoint definitions
+- Backend definitions (including URLs, timeouts, options)
 - Logging settings
 - Storage configuration
 - Service/middleware type registrations
-- Mesh definitions (provider, auth, ingress/egress lists)
-- JWT secrets (picked up on next request)
+- Mesh / provider configuration (provider definitions, ingress/egress settings, auth, etc.)
 
-### Requires Adapter Restart
+### Changes That Trigger Automatic Adapter Restarts
 
-These changes require selective restart of affected network adapters (brief ~1-2s interruption):
+When the config watcher detects these changes, it automatically performs a selective stop+start of the affected network adapters (causing a brief interruption while they restart):
+
 - Network bind addresses or ports
-- Adding/removing networks
-- WireGuard settings
-- Protocol-specific adapter settings
-- TLS certificate paths
-
-**Monitoring:**
-
-Watch logs for reload events:
-```
-📡 Watching config file for changes: config.toml
-✓ Config reloaded successfully
-  Zero-downtime changes: ["middleware", "endpoints"]
-```
-
-For adapter restarts:
-```
-✓ Config reloaded successfully
-  Networks restarted: ["default"]
-```
+- Adding or removing networks
+- Any other network‑level changes, including:
+   - Protocol‑specific adapter settings
+   - TLS certificate / key paths
+   - HTTP/3 / DIMSE settings
 
 ## Environment Variables
 
-Environment variables supplement configuration:
+Harmony supports several environment variables that affect runtime behavior. Most are **runtime settings** rather than configuration overrides—they provide additional context for security, logging, and storage.
 
 ### RUNBEAM_ENCRYPTION_KEY
 
-Encryption key for secure machine token storage:
+Encryption key for secure machine token storage (encrypted filesystem with age X25519 encryption).
 
 ```bash
 export RUNBEAM_ENCRYPTION_KEY=AGE-SECRET-KEY-...
 ```
 
-Required for:
-- Production container deployments
+**When to set:**
+- Production container deployments (recommended)
 - Headless/CI environments
+- When persistent token storage is needed across restarts
+
+**Note:** Does not override TOML configuration; provides the encryption key used by token storage.
+
+### RUNBEAM_MACHINE_TOKEN
+
+Pre-provisioned machine token for headless deployments. Can be provided as a JSON object containing the machine token and metadata.
+
+```bash
+export RUNBEAM_MACHINE_TOKEN='{"machine_token":"...","expires_at":"...","gateway_id":"...","abilities":[...]}'
+```
+
+**When to set:**
+- Headless/automated deployments where interactive authorization is not possible
+- CI/CD pipelines
+- Container orchestration environments
+
+**Note:** If provided, Harmony will use this token immediately and save it to storage. Takes precedence over stored tokens. **If you use this, you do not need `RUNBEAM_JWT_SECRET`.**
 
 ### RUNBEAM_JWT_SECRET
 
-Shared secret for JWT validation from Runbeam Cloud:
+Shared secret for validating user JWT tokens from Runbeam Cloud during interactive gateway authorization via the `/admin/authorize` endpoint.
 
 ```bash
 export RUNBEAM_JWT_SECRET=your-secret-here
 ```
 
-Required for Runbeam Cloud integration.
+This token is set by the CLI during interactive authorisation and is generally not set manually. If you need manual authorisation, you should use the RUNBEAM_MACHINE_TOKEN.
 
-### RUST_LOG
+**When is it used:**
+- Required for **interactive** authorization flow (user logs in, calls `/admin/authorize` endpoint)
+- Must match secret configured in Runbeam Cloud
+- Falls back to development default if not set (logs warning)
 
-Override log level with per-module filtering:
+**Note:** Only needed if you're using interactive authorization to *obtain* a machine token. If you already have a machine token (via `RUNBEAM_MACHINE_TOKEN`), this is not needed—the JWT secret's only purpose is to validate user tokens during the authorization exchange.
+
+### RUNBEAM_PUSH_CONFIG_ON_STARTUP
+
+Controls whether to push local configuration to Runbeam Cloud on startup (before polling begins).
 
 ```bash
-# Override log level for all modules
-export RUST_LOG=harmony=debug
-
-# Per-module filtering
-export RUST_LOG=harmony::router=trace,harmony::middleware=debug,harmony=info
+export RUNBEAM_PUSH_CONFIG_ON_STARTUP=true  # or "1"
 ```
 
-**Note**: `RUST_LOG` overrides the `logging.log_level` setting in `config.toml`.
+Triggers an automatic push and sync to Runbeam on system startup.
+
+1. Pushes current configuration.
+2. Retrieves full configuration from Runbeam Cloud.
+3. Applies changes, ensuring cloud-assigned IDs are maintained.
+
+This has the effect of ensuring that all local config is preserved, while also retrieving config on Runbeam, including IDs.
+
+**Default:** `false` (disabled)
+
+**When to set:**
+- Initial deployment to sync local config with cloud
+- After local configuration changes that should be persisted to cloud
+
+**Note:** After push completes, Runbeam Cloud creates Change records for the pushed configs, which are then picked up by normal polling to ensure cloud-assigned IDs are maintained.
+
+## Authorization Flows
+
+**Interactive (user-initiated):**
+1. User calls `runbeam harmony:authorize` from the CLI
+2. CLI calls `/admin/authorize` with JWT token
+3. Harmony validates JWT using `RUNBEAM_JWT_SECRET`
+4. Harmony exchanges JWT for machine token from Runbeam Cloud API
+5. Machine token stored locally for ongoing operations
+
+**Headless (pre-provisioned):**
+1. Machine token issued manually via Runbeam interface
+2. Set `RUNBEAM_MACHINE_TOKEN` environment variable
+3. Harmony uses token immediately for cloud operations
+4. No `/admin/authorize` endpoint needed, no JWT secret needed
 
 ## Next Steps
 

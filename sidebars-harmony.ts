@@ -61,8 +61,8 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'doc',
-          id: 'components/services',
-          label: 'Services',
+          id: 'components/authentication',
+          label: 'Authentication',
         },
         {
           type: 'category',
@@ -80,13 +80,33 @@ const sidebars: SidebarsConfig = {
             },
             {
               type: 'doc',
+              id: 'components/middleware/dicom-flatten',
+              label: 'DICOM Flatten',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/dicom-to-dicomweb',
+              label: 'DICOM to DICOMweb',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/dicomweb-bridge',
+              label: 'DICOMweb to DICOM',
+            },
+            {
+              type: 'doc',
+              id: 'components/middleware/jmix-builder',
+              label: 'JMIX Builder',
+            },
+            {
+              type: 'doc',
               id: 'components/middleware/jwt-auth',
               label: 'JWT Auth',
             },
             {
               type: 'doc',
-              id: 'components/middleware/transform-jolt',
-              label: 'Transform (JOLT)',
+              id: 'components/middleware/log-dump',
+              label: 'Log Dump',
             },
             {
               type: 'doc',
@@ -100,28 +120,8 @@ const sidebars: SidebarsConfig = {
             },
             {
               type: 'doc',
-              id: 'components/middleware/jmix-builder',
-              label: 'JMIX Builder',
-            },
-            {
-              type: 'doc',
-              id: 'components/middleware/dicomweb-bridge',
-              label: 'DICOMweb to DICOM',
-            },
-            {
-              type: 'doc',
-              id: 'components/middleware/dicom-to-dicomweb',
-              label: 'DICOM to DICOMweb',
-            },
-            {
-              type: 'doc',
-              id: 'components/middleware/dicom-flatten',
-              label: 'DICOM Flatten',
-            },
-            {
-              type: 'doc',
-              id: 'components/middleware/log-dump',
-              label: 'Log Dump',
+              id: 'components/middleware/transform-jolt',
+              label: 'Transform (JOLT)',
             },
             {
               type: 'doc',
@@ -137,8 +137,8 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
-          id: 'components/authentication',
-          label: 'Authentication',
+          id: 'components/services',
+          label: 'Services',
         },
         {
           type: 'doc',

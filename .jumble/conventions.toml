@@ -1,0 +1,7 @@
+[conventions]
+items = [
+  "Order Harmony Middleware items alphabetically by label in sidebars and documentation listings (catalogs, tables, and index pages).",
+]
+
+[gotchas]
+items = []
