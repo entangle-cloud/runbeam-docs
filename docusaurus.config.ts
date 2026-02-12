@@ -156,12 +156,6 @@ const config: Config = {
           label: "GitHub",
           position: "right",
         },
-        {
-          type: "html",
-          position: "right",
-          value:
-            '<button onclick="window.triggerVueAction()" class="navbar__link" style="background:none;border:none;cursor:pointer;">Open Vue Modal</button>',
-        },
       ],
     },
     footer: {
